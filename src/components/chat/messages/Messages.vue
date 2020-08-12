@@ -1,0 +1,44 @@
+<template>
+    <v-list
+        nav
+        disabled
+        class="messages"
+    >
+        <Message
+            v-for="(message, i) in messages"
+            :key="i"
+            :message="message"
+        />
+    </v-list>
+</template>
+
+<script>
+import Message from './Message';
+export default {
+    components: {
+        Message
+    },
+    props: {
+        messages: {
+            type: Array,
+            default: () => {
+                return [
+                    { text: 'Message 1', user: true },
+                    { text: 'Message 1', user: false },
+                    { text: 'Message 1', user: false },
+                    { text: 'Message 1', user: true },
+                ];
+            }
+        }
+    }
+};
+</script>
+
+<style>
+
+.messages {
+    width: 100%;
+    height: 100%;
+}
+
+</style>
