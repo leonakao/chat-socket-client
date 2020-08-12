@@ -26,10 +26,8 @@ export default {
     data: () => {
         return {
             messages: [
-                { text: 'Message 1', user: true },
-                { text: 'Message 1', user: false },
-                { text: 'Message 1', user: false },
-                { text: 'Message 1', user: true },
+                { text: 'Mensagem de teste', user: false },
+                { text: 'Mensagem de teste 2', user: false },
             ],
             messageInput: ''
         };
