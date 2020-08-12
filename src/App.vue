@@ -38,7 +38,7 @@
         </v-app-bar>
 
         <v-main>
-            <HelloWorld/>
+            <Home/>
         </v-main>
     </v-app>
 </template>
