@@ -1,12 +1,6 @@
-# vuetify-spa-template
+# Chat Socket Client
 
-Uma template para projetos **SPA** utilizando VueJs com Vuetify.
-
-## Dependências
-
-- Vue-Cli
-- Vuetify
-- Eslint
+A chat room manager developed using **VueJs** and **Vuetify**.
 
 ## Project setup
 ```
