@@ -22,6 +22,7 @@
 
 <script>
 import Messages from './messages/Messages';
+import ChatConnect from '../../services/ChatConnection';
 export default {
     data: () => {
         return {
@@ -31,6 +32,9 @@ export default {
             ],
             messageInput: ''
         };
+    },
+    created(){
+        ChatConnect();
     },
     components: {
         Messages
