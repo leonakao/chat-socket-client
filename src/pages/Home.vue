@@ -7,8 +7,8 @@
             align="center"
             justify="center"
         >
-            <v-col class="shrink">
-                <Chat/>
+            <v-col v-for="chat in chats" :key="chat" class="shrink" cols="12" sm="6" lg="4" xl="3">
+                <Chat :id="chat" />
             </v-col>
         </v-row>
     </v-container>
@@ -18,6 +18,11 @@
 import Chat from '../components/chat/Chat';
 
 export default {
+    data: () => {
+        return {
+            chats: ['teste', 4, 2, 3]
+        };
+    },
     components: {
         Chat
     }
