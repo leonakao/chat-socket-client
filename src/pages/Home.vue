@@ -7,8 +7,8 @@
             align="center"
             justify="center"
         >
-            <v-col v-for="chat in chats" :key="chat" class="shrink" cols="12" sm="6" lg="4" xl="3">
-                <Chat :id="chat" />
+            <v-col v-for="room in rooms" :key="room._id" class="shrink" cols="12" sm="6" lg="4" xl="3">
+                <Chat :chat="room" />
             </v-col>
         </v-row>
     </v-container>
@@ -16,6 +16,7 @@
 
 <script>
 import Chat from '../components/chat/Chat';
+import { mapActions, mapState } from 'vuex';
 
 export default {
     data: () => {
@@ -25,6 +26,19 @@ export default {
     },
     components: {
         Chat
+    },
+    async created(){
+        await this.getRooms();
+    },
+    computed: {
+        ...mapState({
+            rooms: state => state.rooms
+        })
+    },
+    methods: {
+        ...mapActions({
+            getRooms: 'getRooms'
+        })
     }
 };
 </script>

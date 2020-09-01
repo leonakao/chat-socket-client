@@ -2,7 +2,7 @@
     <v-card class="chat">
         <v-container fluid style="padding: 0;">
             <v-row class="chat-title" no-gutters>
-                {{ name }}
+                {{ chat.name || "Name not found" }}
             </v-row>
             <v-divider></v-divider>
             <v-row class="chat-messages">
@@ -40,9 +40,9 @@ export default {
         Messages
     },
     props: {
-        name: {
-            type: String,
-            default: 'Chat Name'
+        chat: {
+            type: Object,
+            required: true
         }
     },
     methods: {
