@@ -17,6 +17,7 @@
 <script>
 import Chat from '../components/chat/Chat';
 import { mapActions, mapState } from 'vuex';
+import ChatConnect from '../services/ChatConnection';
 
 export default {
     data: () => {
@@ -29,6 +30,7 @@ export default {
     },
     async created(){
         await this.getRooms();
+        ChatConnect();
     },
     computed: {
         ...mapState({
