@@ -74,7 +74,7 @@ export default {
                 { type: 'sup', token: 'sup', name: 'Suporte' },
             ],
             user: {
-                name: '',
+                name: 'Leonardo',
                 id: '',
                 role: {}
             },

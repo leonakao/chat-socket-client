@@ -22,7 +22,6 @@ import ChatConnect from '../services/ChatConnection';
 export default {
     data: () => {
         return {
-            chats: ['teste', 4, 2, 3]
         };
     },
     components: {
@@ -30,10 +29,10 @@ export default {
     },
     async created(){
         if( !this.user.id ){
-            this.$router.push('/settings');
+            return this.$router.push('/settings');
         }
         await this.getRooms();
-        ChatConnect();
+        ChatConnect(this.user);
     },
     computed: {
         ...mapState({

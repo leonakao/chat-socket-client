@@ -1,12 +1,12 @@
 import io from 'socket.io-client';
 
-export default () => {
+export default (user) => {
     const socket = io('http://localhost:3333/chat', {
         query: {
-            Authorization: 'user',
-            userId: '1',
+            Authorization: user.role.token,
+            userId: user.id,
             userAuthentication: undefined,
-            userName: 'teste'
+            userName: user.name
         }
     });
 
