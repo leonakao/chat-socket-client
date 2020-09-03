@@ -15,9 +15,6 @@ import { mapActions, mapState } from 'vuex';
 
 export default {
     async created(){
-        if( !this.user.id ){
-            return this.$router.push('/settings');
-        }
         await this.getRooms();
         ChatConnect(this.user);
     },

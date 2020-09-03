@@ -1,26 +1,9 @@
 <template>
     <v-container
         fluid
-        class="container-chats"
+        class="containerLayout"
     >
-        <v-row justify="center">
-            <v-col cols="12" md="6" align="center">
-                <v-form ref="roomForm">
-                    <v-text-field
-                        label="Order"
-                        required
-                        v-model="order"
-                        :rules="[v => !!v || 'Order is required']"
-                    />
-                    <v-btn
-                        color="primary"
-                        @click="createRoom"
-                    >
-                        Create new Room
-                    </v-btn>
-                </v-form>
-            </v-col>
-        </v-row>
+        <router-view />
         <Chats />
     </v-container>
 </template>
@@ -30,11 +13,6 @@ import Chats from '../components/chat/ChatsManager';
 import { mapActions, mapState } from 'vuex';
 
 export default {
-    data: () => {
-        return {
-            order: ''
-        };
-    },
     components: {
         Chats
     },
@@ -66,7 +44,7 @@ export default {
 </script>
 
 <style scoped>
-.container-chats {
+.containerLayout {
     height: 100%;
 }
 </style>

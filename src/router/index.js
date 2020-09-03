@@ -6,8 +6,34 @@ Vue.use(VueRouter);
 const routes = [
     {
         path: '/',
-        name: 'Chats',
-        component: () => import('../views/Chats')
+        redirect: '/settings'
+    },
+    {
+        path: '/view',
+        name: 'View',
+        component: () => import('../layouts/View'),
+        children: [
+            {
+                path: 'user',
+                name: 'UserView',
+                component: () => import('../views/User')
+            },
+            {
+                path: 'rest',
+                name: 'RestView',
+                component: () => import('../views/Rest')
+            },
+            {
+                path: 'moto',
+                name: 'MotoView',
+                component: () => import('../views/Moto')
+            },
+            {
+                path: 'supt',
+                name: 'SuptView',
+                component: () => import('../views/Supt')
+            },
+        ]
     },
     {
         path: '/settings',

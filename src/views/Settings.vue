@@ -52,10 +52,10 @@ export default {
     data: () => {
         return {
             settings: [
-                { id: 1, token: 'user', name: 'Usuário' },
-                { id: 1, token: 'rest', name: 'Restaurante' },
-                { id: 1, token: 'moto', name: 'Motoboy' },
-                { id: 1, token: 'supt', name: 'Suporte' },
+                { id: 1, token: 'user', name: 'Usuário', page: 'UserView' },
+                { id: 1, token: 'rest', name: 'Restaurante', page: 'RestView' },
+                { id: 1, token: 'moto', name: 'Motoboy', page: 'MotoView' },
+                { id: 1, token: 'supt', name: 'Suporte', page: 'SuptView' },
             ],
             currentSetting: {}
         };
@@ -64,7 +64,7 @@ export default {
         start() {
             if(this.$refs.form.validate()) {
                 this.setUser(this.currentSetting);
-                this.$router.push({ name: 'Chats' });
+                this.$router.push({ name: this.currentSetting.page });
             }
         },
         ...mapMutations([
