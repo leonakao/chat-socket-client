@@ -21,6 +21,14 @@ export default new Vuex.Store({
         async getRooms({ commit }) {
             const result = await request.get('/rooms');
             commit('setRooms', result.data);
+        },
+        async createRoom(_, payload) {
+            const { order } = payload;
+
+            await request.post('/rooms', {
+                name: `Order ${order}`,
+                orderId: order
+            });
         }
     },
     modules: {

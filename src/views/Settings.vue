@@ -81,7 +81,7 @@ export default {
         };
     },
     created() {
-        this.user.id = this.generateId();
+        this.user.id = 321546;
     },
     methods: {
         generateId() {

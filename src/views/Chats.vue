@@ -1,8 +1,26 @@
 <template>
     <v-container
-        class="fill-height"
         fluid
+        class="container-chats"
     >
+        <v-row justify="center">
+            <v-col cols="12" md="6" align="center">
+                <v-form ref="roomForm">
+                    <v-text-field
+                        label="Order"
+                        required
+                        v-model="order"
+                        :rules="[v => !!v || 'Order is required']"
+                    />
+                    <v-btn
+                        color="primary"
+                        @click="createRoom"
+                    >
+                        Create new Room
+                    </v-btn>
+                </v-form>
+            </v-col>
+        </v-row>
         <v-row
             align="center"
             justify="center"
@@ -22,6 +40,7 @@ import ChatConnect from '../services/ChatConnection';
 export default {
     data: () => {
         return {
+            order: ''
         };
     },
     components: {
@@ -41,9 +60,24 @@ export default {
         })
     },
     methods: {
+        createRoom() {
+            if(this.$refs.roomForm.validate()) {
+                this.newRoom({
+                    order: this.order
+                });
+                this.$refs.roomForm.reset();
+            }
+        },
         ...mapActions({
-            getRooms: 'getRooms'
+            getRooms: 'getRooms',
+            newRoom: 'createRoom'
         })
     }
 };
 </script>
+
+<style scoped>
+.container-chats {
+    height: 100%;
+}
+</style>
