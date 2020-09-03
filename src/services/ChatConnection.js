@@ -3,7 +3,7 @@ import io from 'socket.io-client';
 export default (user) => {
     const socket = io('http://localhost:3333/chat', {
         query: {
-            Authorization: user.role.token,
+            Authorization: user.token,
             userId: user.id,
             userAuthentication: undefined,
             userName: user.name
