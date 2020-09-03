@@ -6,11 +6,15 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
     state: {
-        rooms: []
+        rooms: [],
+        user: {}
     },
     mutations: {
         setRooms(state, rooms) {
             state.rooms = rooms;
+        },
+        setUser(state, user) {
+            state.user = user;
         }
     },
     actions: {

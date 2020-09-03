@@ -29,12 +29,16 @@ export default {
         Chat
     },
     async created(){
+        if( !this.user.id ){
+            this.$router.push('/settings');
+        }
         await this.getRooms();
         ChatConnect();
     },
     computed: {
         ...mapState({
-            rooms: state => state.rooms
+            rooms: state => state.rooms,
+            user: state => state.user
         })
     },
     methods: {
