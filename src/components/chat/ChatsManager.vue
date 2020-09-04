@@ -12,11 +12,15 @@
 <script>
 import ChatConnect from '../../services/ChatConnection';
 import { mapActions, mapState } from 'vuex';
+import Chat from './Chat';
 
 export default {
     async created(){
         await this.getRooms();
         ChatConnect(this.user);
+    },
+    components: {
+        Chat
     },
     computed: {
         ...mapState({
