@@ -32,7 +32,7 @@ export default {
         createRoom() {
             if(this.$refs.roomForm.validate()) {
                 this.newRoom({
-                    order: this.order
+                    orderId: this.order
                 });
                 this.$refs.roomForm.reset();
             }
