@@ -33,13 +33,11 @@ export default (user) => {
     });
 
     socket.on('newMessage', payload => {
-        const { roomId, message } = payload;
+        const message = payload;
 
-        const room = rooms.find(room => room.id === roomId);
+        const room = rooms.find(room => room.id === message.room);
 
-        if(room) {
-            room.callback(message);
-        }
+        if(room) room.callback(message);
     });
 
     window.chatConnection = {
