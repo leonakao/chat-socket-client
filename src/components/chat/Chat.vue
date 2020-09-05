@@ -22,12 +22,12 @@
 
 <script>
 import Messages from './messages/Messages';
+import { mapState } from 'vuex';
+
 export default {
     data: () => {
         return {
             messages: [
-                { text: 'Mensagem de teste', user: false },
-                { text: 'Mensagem de teste 2', user: false },
             ],
             messageInput: ''
         };
@@ -41,19 +41,25 @@ export default {
             required: true
         }
     },
+    mounted() {
+        if(window.chatConnection) {
+            window.chatConnection.useChat(this.chat._id, this.addMessage);
+        }
+    },
     methods: {
         inputKeyUp() {
             if(!this.messageInput || this.messageInput === '') {
                 return;
             }
-            const message = {
-                text: this.messageInput,
-                user: true
-            };
-            this.addMessage(message);
-            this.messageInput = '';
+
+            if(window.chatConnection) {
+                window.chatConnection.sendMessage(this.chat._id, this.messageInput);
+                this.messageInput = '';
+            } else {
+                console.error('Chat not connected');
+            }
         },
-        addMessage(message) {false;
+        addMessage(message) {
             if(!message) { return false; }
             this.messages.push(message);
             this.$nextTick(() => {
@@ -61,6 +67,11 @@ export default {
                 messageContainer.scrollTop = messageContainer.scrollHeight;
             });
         }
+    },
+    computed: {
+        ...mapState({
+            user: state => state.user
+        })
     }
 };
 </script>

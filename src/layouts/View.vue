@@ -9,6 +9,7 @@
 </template>
 
 <script>
+import ChatConnection from '../services/ChatConnection';
 import Chats from '../components/chat/ChatsManager';
 import { mapActions, mapState } from 'vuex';
 
@@ -20,6 +21,7 @@ export default {
         if( !this.user.id ){
             return this.$router.push('/settings');
         }
+        ChatConnection(this.user);
     },
     computed: {
         ...mapState({
