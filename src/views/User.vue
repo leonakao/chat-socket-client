@@ -35,10 +35,12 @@ export default {
                     orderId: this.order
                 });
                 this.$refs.roomForm.reset();
+                this.updateRooms();
             }
         },
         ...mapActions({
-            newRoom: 'createRoom'
+            newRoom: 'createRoom',
+            updateRooms: 'getRooms'
         })
     }
 };
