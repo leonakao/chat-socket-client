@@ -34,7 +34,7 @@
                                     color="success"
                                     @click="start"
                                 >
-                                    User this setup
+                                    Use this setup
                                 </v-btn>
                             </div>
                         </v-form>
