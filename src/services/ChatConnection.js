@@ -86,7 +86,6 @@ export default (user) => {
 
         const room = rooms.find(room => room.id === message.room);
 
-        console.log(room, message);
         if(room) room.callback(message);
         else {
             console.log('Message received from new chat: ', message.room);

@@ -1,11 +1,13 @@
 <template>
     <v-row justify="center">
         <v-col cols="12" md="6" align="center">
-            <v-form ref="roomForm">
+            <v-form ref="roomForm" @submit.prevent>
                 <v-text-field
                     label="Order"
+                    ref="orderInput"
                     required
                     v-model="order"
+                    @keypress.enter="createRoom"
                     :rules="[v => !!v || 'Order is required']"
                 />
                 <v-btn
@@ -29,14 +31,15 @@ export default {
         };
     },
     methods: {
-        createRoom() {
+        async createRoom() {
             if(this.$refs.roomForm.validate()) {
-                this.newRoom({
+                await this.newRoom({
                     orderId: this.order
                 });
-                this.$refs.roomForm.reset();
                 this.updateRooms();
+                this.$refs.roomForm.reset();
             }
+            this.$refs.orderInput.blur();
         },
         ...mapActions({
             newRoom: 'createRoom',
