@@ -9,11 +9,16 @@
 </template>
 
 <script>
-import ChatConnection from '../services/ChatConnection';
 import Chats from '../components/chat/ChatsManager';
 import { mapActions, mapState } from 'vuex';
+import ChatConnection from '../services/ChatConnection';
 
 export default {
+    data: () => {
+        return {
+            chatConnection: undefined,
+        };
+    },
     components: {
         Chats
     },
@@ -21,7 +26,8 @@ export default {
         if( !this.user.id ){
             return this.$router.push('/settings');
         }
-        ChatConnection(this.user);
+        this.chatConnection = ChatConnection(this.user);
+        this.chatConnection.setNewChatCallback(this.updateRooms);
     },
     computed: {
         ...mapState({
@@ -39,7 +45,8 @@ export default {
             }
         },
         ...mapActions({
-            newRoom: 'createRoom'
+            newRoom: 'createRoom',
+            updateRooms: 'getRooms'
         })
     }
 };

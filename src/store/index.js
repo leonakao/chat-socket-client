@@ -19,12 +19,19 @@ export default new Vuex.Store({
     },
     actions: {
         async getRooms({ commit, state }) {
-            const result = await request.get('/rooms', {
-                headers: {
-                    Authorization: state.user.token || ''
+            try{
+                const result = await request.get('/rooms', {
+                    headers: {
+                        Authorization: state.user.token || ''
+                    }
+                });
+                commit('setRooms', result.data);
+            } catch (err) {
+                if(err.response.status !== 401){
+                    console.log('Error while loading rooms: ', err);
                 }
-            });
-            commit('setRooms', result.data);
+
+            }
         },
         async createRoom({ state }, payload) {
             const { orderId } = payload;
