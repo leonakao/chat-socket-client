@@ -27,9 +27,9 @@ import { mapState } from 'vuex';
 export default {
     data: () => {
         return {
-            messages: [
-            ],
-            messageInput: ''
+            messages: [],
+            messageInput: '',
+            connected: false
         };
     },
     components: {
@@ -41,9 +41,11 @@ export default {
             required: true
         }
     },
-    mounted() {
+    async mounted() {
         if(window.chatConnection) {
-            window.chatConnection.useChat(this.chat._id, this.addMessage);
+            const messages = await window.chatConnection.useChat(this.chat._id, this.addMessage);
+            this.messages.push(...messages);
+            this.connected = true;
         }
     },
     methods: {

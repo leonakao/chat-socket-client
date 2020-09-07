@@ -1,4 +1,5 @@
 import io from 'socket.io-client';
+import axios from 'axios';
 
 export default (user) => {
     const socket = io('http://localhost:3333/chat', {
@@ -7,6 +8,13 @@ export default (user) => {
             userId: user.id,
             userAuthentication: undefined,
             userName: user.name
+        }
+    });
+
+    const api = axios.create({
+        baseURL: 'http://localhost:3333',
+        headers: {
+            Authorization: user.token
         }
     });
 
@@ -41,7 +49,7 @@ export default (user) => {
     });
 
     window.chatConnection = {
-        useChat: (roomId, callback) => {
+        useChat: async (roomId, callback) => {
             if(!connected) {
                 new Error('You must be connected');
             }
@@ -55,8 +63,15 @@ export default (user) => {
                     callback
                 });
             }
+
+            try{
+                const request = await api.get('/rooms/messages/' + roomId);
+                return request.data;
+            } catch (err) {
+                console.log('Error while getting history chat: '  + err);
+            }
         },
-        sendMessage: (roomId, message) => {
+        sendMessage: async (roomId, message) => {
             if(!connected) {
                 new Error('You must be connected');
             }
@@ -65,7 +80,8 @@ export default (user) => {
                 roomId,
                 message
             });
-        }
+        },
     };
+
     return window.ChatConnection;
 };
