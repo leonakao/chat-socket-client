@@ -29,7 +29,8 @@ export default {
         return {
             messages: [],
             messageInput: '',
-            connected: false
+            connected: false,
+            messageContainer: undefined,
         };
     },
     components: {
@@ -47,6 +48,10 @@ export default {
             this.messages.push(...messages);
             this.connected = true;
         }
+        this.messageContainer = this.$el.querySelector('#messages-container');
+        this.$nextTick(() => {
+            this.scrollToBottom();
+        });
     },
     methods: {
         inputKeyUp() {
@@ -65,9 +70,11 @@ export default {
             if(!message) { return false; }
             this.messages.push(message);
             this.$nextTick(() => {
-                const messageContainer = document.getElementById('messages-container');
-                messageContainer.scrollTop = messageContainer.scrollHeight;
+                this.scrollToBottom();
             });
+        },
+        scrollToBottom(){
+            this.messageContainer.scrollTop =this.messageContainer.scrollHeight;
         }
     },
     computed: {
