@@ -4,9 +4,9 @@ import axios from 'axios';
 export default (user) => {
     if(window.chatConnection !== undefined) return window.chatConnection;
 
-    const socket = io('http://localhost:3333/chat', {
+    const socket = io(process.env.VUE_APP_CHAT_SERVICE_URL || '', {
         query: {
-            Authorization: user.token,
+            Authorization: process.env.NODE_ENV === 'production' ? process.env.TOKEN_AUTH || '' : user.token,
             userId: user.id,
             userAuthentication: undefined,
             userName: user.name
@@ -14,7 +14,7 @@ export default (user) => {
     });
 
     const api = axios.create({
-        baseURL: 'http://localhost:3333',
+        baseURL: process.env.VUE_APP_API_BASE_URL || '',
         headers: {
             Authorization: user.token
         }

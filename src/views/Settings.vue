@@ -52,10 +52,10 @@ export default {
     data: () => {
         return {
             settings: [
-                { id: 1, token: 'user', name: 'Usuário', page: 'UserView' },
-                { id: 1, token: 'rest', name: 'Restaurante', page: 'RestView' },
-                { id: 1, token: 'moto', name: 'Motoboy', page: 'MotoView' },
-                { id: 1, token: 'supt', name: 'Suporte', page: 'SuptView' },
+                { id: 1, token: process.env.VUE_APP_TOKEN_SERVICE_USER || '', name: 'Usuário', page: 'UserView' },
+                { id: 1, token: process.env.VUE_APP_TOKEN_SERVICE_RESTAURANT || '', name: 'Restaurante', page: 'RestView' },
+                { id: 1, token: process.env.VUE_APP_TOKEN_SERVICE_DELIVERY || '', name: 'Motoboy', page: 'MotoView' },
+                { id: 1, token: process.env.VUE_APP_TOKEN_SERVICE_SUPPORT || '', name: 'Suporte', page: 'SuptView' },
             ],
             currentSetting: {}
         };
