@@ -30,20 +30,24 @@ export default new Vuex.Store({
                 if(err.response.status !== 401){
                     console.log('Error while loading rooms: ', err);
                 }
-
+                alert(`An error occurred: ${err.message}`);
             }
         },
         async createRoom({ state }, payload) {
-            const { orderId } = payload;
+            try{
+                const { orderId } = payload;
 
-            await request.post('/rooms', {
-                name: `Order ${orderId}`,
-                orderId
-            }, {
-                headers: {
-                    Authorization: state.user.token || ''
-                }
-            });
+                await request.post('/rooms', {
+                    name: `Order ${orderId}`,
+                    orderId
+                }, {
+                    headers: {
+                        Authorization: state.user.token || ''
+                    }
+                });
+            } catch (err) {
+                alert(`An error occurred: ${err.message}`);
+            }
         }
     },
     modules: {
