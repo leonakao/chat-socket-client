@@ -15,7 +15,9 @@ import Chat from './Chat';
 
 export default {
     async created(){
-        await this.getRooms();
+        this.$nextTick(() => {
+            this.getRooms();
+        });
     },
     components: {
         Chat

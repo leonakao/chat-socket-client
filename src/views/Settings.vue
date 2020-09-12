@@ -52,10 +52,10 @@ export default {
     data: () => {
         return {
             settings: [
-                { id: 1, token: process.env.VUE_APP_TOKEN_SERVICE_USER || '', name: 'Usuário', page: 'UserView' },
-                { id: 1, token: process.env.VUE_APP_TOKEN_SERVICE_RESTAURANT || '', name: 'Restaurante', page: 'RestView' },
-                { id: 1, token: process.env.VUE_APP_TOKEN_SERVICE_DELIVERY || '', name: 'Motoboy', page: 'MotoView' },
-                { id: 1, token: process.env.VUE_APP_TOKEN_SERVICE_SUPPORT || '', name: 'Suporte', page: 'SuptView' },
+                { name: 'Usuário', page: 'UserView' },
+                { name: 'Restaurante', page: 'RestView' },
+                { name: 'Motoboy', page: 'MotoView' },
+                { name: 'Suporte', page: 'SuptView' },
             ],
             currentSetting: {}
         };
@@ -63,7 +63,6 @@ export default {
     methods: {
         start() {
             if(this.$refs.form.validate()) {
-                this.setUser(this.currentSetting);
                 this.$router.push({ name: this.currentSetting.page });
             }
         },
