@@ -27,7 +27,7 @@ export default {
     },
     computed: {
         isMine() {
-            return this.user.token == this.message.from.reference.type && this.user.id == this.message.from.reference.id;
+            return this.user.identification == this.message.from.reference.type && this.user.id == this.message.from.reference.id;
         },
         ...mapState({
             user: state => state.user
