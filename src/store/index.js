@@ -1,13 +1,13 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import request from '../plugins/axios';
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
     state: {
         rooms: [],
-        user: {}
+        user: {},
+        chatConnection: undefined
     },
     mutations: {
         setRooms(state, rooms) {
@@ -15,36 +15,28 @@ export default new Vuex.Store({
         },
         setUser(state, user) {
             state.user = user;
+        },
+        setChatConnection(state, chatConnection) {
+            state.chatConnection = chatConnection;
         }
     },
     actions: {
         async getRooms({ commit, state }) {
             try{
-                const result = await request.get('/rooms', {
-                    headers: {
-                        Authorization: state.user.token || ''
-                    }
-                });
-                commit('setRooms', result.data);
-            } catch (err) {
-                if(err.response.status !== 401){
-                    console.log('Error while loading rooms: ', err);
+                if(state.chatConnection){
+                    const rooms = await state.chatConnection.getRooms();
+                    commit('setRooms', rooms);
                 }
-                alert(`An error occurred: ${err.message}`);
+            } catch (err) {
+                console.log('Error while loading rooms: ', err);
             }
         },
         async createRoom({ state }, payload) {
             try{
-                const { orderId } = payload;
-
-                await request.post('/rooms', {
-                    name: `Order ${orderId}`,
-                    orderId
-                }, {
-                    headers: {
-                        Authorization: state.user.token || ''
-                    }
-                });
+                if (state.chatConnection){
+                    const { orderId } = payload;
+                    await state.chatConnection.createRoomByOrder(orderId);
+                }
             } catch (err) {
                 alert(`An error occurred: ${err.message}`);
             }

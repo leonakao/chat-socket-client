@@ -24,10 +24,10 @@ export default {
     },
     beforeRouteEnter(to, from, next){
         const users = [
-            { id: 1, token: process.env.VUE_APP_TOKEN_SERVICE_USER || '', name: 'Usuário', page: 'UserView' },
-            { id: 1, token: process.env.VUE_APP_TOKEN_SERVICE_RESTAURANT || '', name: 'Restaurante', page: 'RestView' },
-            { id: 1, token: process.env.VUE_APP_TOKEN_SERVICE_DELIVERY || '', name: 'Motoboy', page: 'MotoView' },
-            { id: 1, token: process.env.VUE_APP_TOKEN_SERVICE_SUPPORT || '', name: 'Suporte', page: 'SuptView' },
+            { id: 1, token: '001', identification: process.env.VUE_APP_TOKEN_SERVICE_USER || '', page: 'UserView' },
+            { id: 1, token: '001', identification: process.env.VUE_APP_TOKEN_SERVICE_RESTAURANT || '', page: 'RestView' },
+            { id: 1, token: '001', identification: process.env.VUE_APP_TOKEN_SERVICE_DELIVERY || '', page: 'MotoView' },
+            { id: 1, token: '001', identification: process.env.VUE_APP_TOKEN_SERVICE_SUPPORT || '', page: 'SuptView' },
         ];
         const user = users.find(user => user.page === to.name);
         if(user){
@@ -39,8 +39,9 @@ export default {
     },
     async created(){
         this.$nextTick(() => {
-            this.chatConnection = ChatConnection(this.user);
+            this.chatConnection = ChatConnection(this.user, this.user.identification);
             this.chatConnection.setNewChatCallback(this.updateRooms);
+            this.$store.commit('setChatConnection', this.chatConnection);
         });
     },
     computed: {
