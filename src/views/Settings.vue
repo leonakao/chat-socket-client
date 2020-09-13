@@ -46,8 +46,6 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
-
 export default {
     data: () => {
         return {
@@ -66,9 +64,6 @@ export default {
                 this.$router.push({ name: this.currentSetting.page });
             }
         },
-        ...mapMutations([
-            'setUser'
-        ])
     }
 };
 </script>
