@@ -4,6 +4,27 @@
         class="containerLayout"
     >
         <router-view />
+        <v-row justify="center">
+            <v-col cols="6" sm="4" md="2" align="center"
+                   v-for="order in orders"
+                   :key="order.id"
+                   :value="order.id"
+            >
+                <v-card elevation="10">
+                    <v-card-title>{{ order.name }}</v-card-title>
+                    <v-card-text class="text-left">
+                        <p>User: {{ order.user }}</p>
+                        <p>Restaurant: {{ order.restaurant }}</p>
+                        <p>Delivery: {{ order.delivery }}</p>
+                    </v-card-text>
+                    <v-card-actions>
+                        <v-btn text color="primary" @click="openRoom">
+                            Open chat using this order
+                        </v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-col>
+        </v-row>
         <Chats />
     </v-container>
 </template>

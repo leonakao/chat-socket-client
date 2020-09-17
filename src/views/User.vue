@@ -1,23 +1,5 @@
 <template>
     <v-row justify="center">
-        <v-col cols="12" md="6" align="center">
-            <v-form ref="roomForm" @submit.prevent>
-                <v-text-field
-                    label="Order"
-                    ref="orderInput"
-                    required
-                    v-model="order"
-                    @keypress.enter="createRoom"
-                    :rules="[v => !!v || 'Order is required']"
-                />
-                <v-btn
-                    color="primary"
-                    @click="createRoom"
-                >
-                    Create new Room
-                </v-btn>
-            </v-form>
-        </v-col>
     </v-row>
 </template>
 
