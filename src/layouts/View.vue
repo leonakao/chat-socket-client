@@ -65,7 +65,7 @@ export default {
     async created(){
         this.$nextTick(() => {
             this.chatConnection = ChatConnection(this.user, this.user.identification);
-            this.chatConnection.setNewChatCallback(this.updateRooms);
+            this.chatConnection.setNewChatCallback(this.openRoom);
             this.$store.commit('setChatConnection', this.chatConnection);
         });
     },
@@ -86,13 +86,13 @@ export default {
         ...mapActions({
             newRoom: 'createRoom',
             updateRooms: 'getRooms',
-            getRoom: 'findRoomByOrder'
+            findRoomByOrder: 'findRoomByOrder',
         }),
         ...mapMutations({
             openRoom: 'openRoom'
         }),
         async openRoomByOrder(orderId) {
-            const room = await this.getRoom(orderId);
+            const room = await this.findRoomByOrder(orderId);
             this.openRoom(room);
         }
     }

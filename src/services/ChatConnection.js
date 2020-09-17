@@ -73,6 +73,10 @@ export default (() => {
             findRoomByOrder: async (orderId) => {
                 const { data } = await api.get(`/rooms/order/${orderId}`);
                 return data;
+            },
+            findRoomById: async (roomId) => {
+                const { data } = await api.get(`/rooms/${roomId}`);
+                return data;
             }
         };
 
@@ -94,7 +98,7 @@ export default (() => {
             }
         });
 
-        socket.on('newMessage', payload => {
+        socket.on('newMessage', async payload => {
             const message = payload;
 
             const room = rooms.find(room => room.id === message.room);
@@ -102,7 +106,7 @@ export default (() => {
             if(room) room.callback(message);
             else {
                 console.log('Message received from new chat: ', message.room);
-                newChatCallback(window.chatConnection.useChat(message.room));
+                newChatCallback(await window.chatConnection.findRoomById(message.room));
             }
         });
 
