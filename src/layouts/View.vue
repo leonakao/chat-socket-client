@@ -10,7 +10,7 @@
 
 <script>
 import Chats from '../components/chat/ChatsManager';
-import { mapActions, mapState } from 'vuex';
+import { mapActions, mapState, mapGetters } from 'vuex';
 import ChatConnection from '../services/ChatConnection';
 
 export default {
@@ -31,7 +31,10 @@ export default {
         ];
         const user = users.find(user => user.page === to.name);
         if(user){
-            if(to.params.accountAuth){ user.token = to.params.accountAuth; }
+            if(to.params.accountAuth){
+                user.token = to.params.accountAuth;
+                user.id = parseInt(user.token);
+            }
             return next(vm => {
                 vm.$store.commit('setUser', user);
             });
@@ -49,6 +52,9 @@ export default {
         ...mapState({
             rooms: state => state.rooms,
             user: state => state.user
+        }),
+        ...mapGetters({
+            orders: 'getOrders'
         })
     },
     methods: {
