@@ -14,20 +14,36 @@
                     </v-card-title>
                     <v-card-text>
                         <v-form ref="form">
-                            <v-btn-toggle
-                                mandatory
-                                class="roles"
-                                v-model="currentSetting"
-                            >
-                                <v-btn
-                                    v-for="setting in settings"
-                                    :key="setting.type"
-                                    color="warning"
-                                    :value="setting"
-                                >
-                                    {{ setting.name }}
-                                </v-btn>
-                            </v-btn-toggle>
+                            <v-container>
+                                <v-row>
+                                    <v-col cols="12">
+                                        <v-select
+                                            label="Use account:"
+                                            :items="users"
+                                            item-text="name"
+                                            item-value="auth"
+                                            v-model="currentAccount"
+                                            :rules="[v => !!v || 'Select a account']"
+                                        />
+                                    </v-col>
+                                </v-row>
+                                <v-row>
+                                    <v-btn-toggle
+                                        mandatory
+                                        class="roles"
+                                        v-model="currentSetting"
+                                    >
+                                        <v-btn
+                                            v-for="setting in settings"
+                                            :key="setting.type"
+                                            color="warning"
+                                            :value="setting"
+                                        >
+                                            {{ setting.name }}
+                                        </v-btn>
+                                    </v-btn-toggle>
+                                </v-row>
+                            </v-container>
                             <div class="d-flex justify-end">
                                 <v-btn
                                     class="mt-5"
@@ -50,18 +66,27 @@ export default {
     data: () => {
         return {
             settings: [
-                { name: 'Usuário', page: 'UserView' },
-                { name: 'Restaurante', page: 'RestView' },
-                { name: 'Motoboy', page: 'MotoView' },
-                { name: 'Suporte', page: 'SuptView' },
+                { name: 'User', page: 'UserView' },
+                { name: 'Restaurant', page: 'RestView' },
+                { name: 'Delivery', page: 'MotoView' },
+                { name: 'Support', page: 'SuptView' },
             ],
-            currentSetting: {}
+            users: [
+                { name: 'Account 001', auth: '001' },
+                { name: 'Account 002', auth: '002' },
+                { name: 'Account 003', auth: '003' },
+                { name: 'Account 004', auth: '004' },
+                { name: 'Account 005', auth: '005' },
+                { name: 'Account 006', auth: '006' },
+            ],
+            currentSetting: {},
+            currentAccount: 0
         };
     },
     methods: {
         start() {
             if(this.$refs.form.validate()) {
-                this.$router.push({ name: this.currentSetting.page });
+                this.$router.push({ name: this.currentSetting.page, params: { accountAuth: this.currentAccount } });
             }
         },
     }

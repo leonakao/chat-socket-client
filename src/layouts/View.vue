@@ -31,6 +31,7 @@ export default {
         ];
         const user = users.find(user => user.page === to.name);
         if(user){
+            if(to.params.accountAuth){ user.token = to.params.accountAuth; }
             return next(vm => {
                 vm.$store.commit('setUser', user);
             });

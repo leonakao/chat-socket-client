@@ -14,22 +14,22 @@ const routes = [
         component: () => import('../layouts/View'),
         children: [
             {
-                path: 'user',
+                path: 'user/:accountAuth',
                 name: 'UserView',
                 component: () => import('../views/User')
             },
             {
-                path: 'rest',
+                path: 'rest/:accountAuth',
                 name: 'RestView',
                 component: () => import('../views/Rest')
             },
             {
-                path: 'moto',
+                path: 'moto/:accountAuth',
                 name: 'MotoView',
                 component: () => import('../views/Moto')
             },
             {
-                path: 'supt',
+                path: 'supt/:accountAuth',
                 name: 'SuptView',
                 component: () => import('../views/Supt')
             },
