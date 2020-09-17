@@ -24,7 +24,8 @@ export default {
 
         this.unsubscribe = this.$store.subscribe((mutation, state) => {
             if (mutation.type === 'openRoom') {
-                this.rooms.concat(state.orderRooms.filter((room) => this.rooms.indexOf(room) < 0));
+                const notOpenedRooms = state.orderRooms.filter((orderRoom) => !this.rooms.find(room => room._id === orderRoom._id));
+                this.rooms.push(...notOpenedRooms);
             }
         });
     },

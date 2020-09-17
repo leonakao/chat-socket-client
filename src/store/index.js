@@ -39,7 +39,8 @@ export default new Vuex.Store({
             state.chatConnection = chatConnection;
         },
         openRoom(state, room) {
-            state.orderRooms.push(room);
+            if(!state.orderRooms.find(orderRoom => orderRoom._id === room._id))
+                state.orderRooms.push(room);
         }
     },
     actions: {
@@ -58,6 +59,15 @@ export default new Vuex.Store({
                 if (state.chatConnection){
                     const { orderId } = payload;
                     await state.chatConnection.createRoomByOrder(orderId);
+                }
+            } catch (err) {
+                alert(`An error occurred: ${err.message}`);
+            }
+        },
+        async findRoomByOrder({ state }, orderId) {
+            try{
+                if (state.chatConnection){
+                    return await state.chatConnection.findRoomByOrder(orderId);
                 }
             } catch (err) {
                 alert(`An error occurred: ${err.message}`);

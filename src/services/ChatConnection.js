@@ -69,6 +69,10 @@ export default (() => {
                     name: `Order ${orderId}`,
                     orderId
                 });
+            },
+            findRoomByOrder: async (orderId) => {
+                const { data } = await api.get(`/rooms/order/${orderId}`);
+                return data;
             }
         };
 

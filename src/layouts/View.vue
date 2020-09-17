@@ -18,7 +18,7 @@
                         <p>Delivery: {{ order.delivery }}</p>
                     </v-card-text>
                     <v-card-actions>
-                        <v-btn text color="primary" @click="openRoom">
+                        <v-btn text color="primary" @click="openRoomByOrder(order.id)" :disabled="orderRooms.find(room => room.orderId === order.id) ? true : false">
                             Open chat using this order
                         </v-btn>
                     </v-card-actions>
@@ -31,7 +31,7 @@
 
 <script>
 import Chats from '../components/chat/ChatsManager';
-import { mapActions, mapState, mapGetters } from 'vuex';
+import { mapActions, mapState, mapGetters, mapMutations } from 'vuex';
 import ChatConnection from '../services/ChatConnection';
 
 export default {
@@ -72,7 +72,8 @@ export default {
     computed: {
         ...mapState({
             rooms: state => state.rooms,
-            user: state => state.user
+            user: state => state.user,
+            orderRooms: state => state.orderRooms
         }),
         ...mapGetters({
             orders: 'getOrders'
@@ -81,8 +82,16 @@ export default {
     methods: {
         ...mapActions({
             newRoom: 'createRoom',
-            updateRooms: 'getRooms'
-        })
+            updateRooms: 'getRooms',
+            getRoom: 'findRoomByOrder'
+        }),
+        ...mapMutations({
+            openRoom: 'openRoom'
+        }),
+        async openRoomByOrder(orderId) {
+            const room = await this.getRoom(orderId);
+            this.openRoom(room);
+        }
     }
 };
 </script>
