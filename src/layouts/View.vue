@@ -18,7 +18,7 @@
                         <p>Delivery: {{ order.delivery }}</p>
                     </v-card-text>
                     <v-card-actions>
-                        <v-btn text color="primary" @click="openRoomByOrder(order.id)" :disabled="orderRooms.find(room => room.orderId === order.id) ? true : false">
+                        <v-btn v-if="!isRestaurant" text color="primary" @click="openRoomByOrder(order.id)" :disabled="orderRooms.find(room => room.orderId === order.id) ? true : false">
                             Open chat using this order
                         </v-btn>
                     </v-card-actions>
@@ -77,7 +77,10 @@ export default {
         }),
         ...mapGetters({
             orders: 'getOrders'
-        })
+        }),
+        isRestaurant(){
+            return this.user.identification === process.env.VUE_APP_TOKEN_SERVICE_RESTAURANT;
+        }
     },
     methods: {
         ...mapActions({
