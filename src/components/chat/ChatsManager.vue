@@ -4,7 +4,7 @@
         justify="center"
     >
         <v-col v-for="room in rooms" :key="room._id" class="shrink" cols="12" sm="6" lg="4" xl="3">
-            <Chat :chat="room"/>
+            <Chat :room="room"/>
         </v-col>
     </v-row>
 </template>
@@ -15,16 +15,29 @@ import Chat from './Chat';
 
 export default {
     async created(){
-        this.$nextTick(() => {
-            this.getRooms();
+        this.$nextTick(async () => {
+            await this.getRooms();
+            if(this.user.identification === process.env.VUE_APP_TOKEN_SERVICE_SUPPORT) {
+                this.rooms.push(...this.allRooms);
+            }
+        });
+
+        this.unsubscribe = this.$store.subscribe((mutation, state) => {
+            if (mutation.type === 'openRoom') {
+                this.rooms.concat(state.orderRooms.filter((room) => this.rooms.indexOf(room) < 0));
+            }
         });
     },
+    data: () => ({
+        rooms: [],
+        unsubscribe: () => {}
+    }),
     components: {
         Chat
     },
     computed: {
         ...mapState({
-            rooms: state => state.rooms,
+            allRooms: state => state.rooms,
             user: state => state.user
         })
     },
@@ -32,6 +45,9 @@ export default {
         ...mapActions({
             getRooms: 'getRooms',
         })
+    },
+    beforeDestroy(){
+        this.unsubscribe();
     }
 };
 </script>

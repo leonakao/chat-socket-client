@@ -1,17 +1,17 @@
 <template>
-    <v-card class="chat">
+    <v-card class="room">
         <v-container fluid style="padding: 0;">
-            <v-row class="chat-title" no-gutters>
-                {{ chat.name || "Name not found" }}
+            <v-row class="room-title" no-gutters>
+                {{ room.name || "Name not found" }}
             </v-row>
             <v-divider></v-divider>
-            <v-row class="chat-messages">
+            <v-row class="room-messages">
                 <v-container id="messages-container" class="messages-container">
                     <Messages :messages="messages" />
                 </v-container>
             </v-row>
             <v-divider></v-divider>
-            <v-row class="chat-input">
+            <v-row class="room-input">
                 <v-col cols="12">
                     <v-text-field @keyup.enter="inputKeyUp()" v-model="messageInput" placeholder="Type your message..."></v-text-field>
                 </v-col>
@@ -37,14 +37,14 @@ export default {
         Messages
     },
     props: {
-        chat: {
+        room: {
             type: Object,
             required: true
         }
     },
     async mounted() {
         if(window.chatConnection) {
-            const messages = await window.chatConnection.useChat(this.chat._id, this.addMessage);
+            const messages = await window.chatConnection.useChat(this.room._id, this.addMessage);
             this.messages.push(...messages);
             this.connected = true;
         }
@@ -60,7 +60,7 @@ export default {
             }
 
             if(window.chatConnection) {
-                window.chatConnection.sendMessage(this.chat._id, this.messageInput);
+                window.chatConnection.sendMessage(this.room._id, this.messageInput);
                 this.messageInput = '';
             } else {
                 console.error('Chat not connected');
@@ -87,28 +87,28 @@ export default {
 
 <style>
 
-.chat {
+.room {
     min-height: 400px;
     min-width: 400px;
 }
 
-.chat .row {
+.room .row {
     padding: 15px;
 }
 
-.chat .chat-messages {
+.room .room-messages {
     height: 400px;
     padding: 0 10px;
 }
 
-.chat .chat-messages .messages-container {
+.room .room-messages .messages-container {
     overflow-y: scroll;
     padding: 0;
     margin: 0;
     height: 100%;
 }
 
-.chat .chat-input {
+.room .room-input {
     padding: 0px 30px;
 }
 

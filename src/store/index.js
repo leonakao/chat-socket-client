@@ -16,6 +16,7 @@ export default new Vuex.Store({
             { name: 'Order 005', id: '5', user: '5', restaurant: '5', delivery: '5' },
             { name: 'Order 006', id: '6', user: '6', restaurant: '6', delivery: '6' }
         ],
+        orderRooms: []
     },
     getters: {
         getOrders: state => {
@@ -23,6 +24,7 @@ export default new Vuex.Store({
                 if(state.user.identification === process.env.VUE_APP_TOKEN_SERVICE_USER && order.user == state.user.id) return true;
                 if(state.user.identification === process.env.VUE_APP_TOKEN_SERVICE_RESTAURANT && order.restaurant == state.user.id) return true;
                 if(state.user.identification === process.env.VUE_APP_TOKEN_SERVICE_DELIVERY && order.delivery == state.user.id) return true;
+                return false;
             });
         }
     },
@@ -35,6 +37,9 @@ export default new Vuex.Store({
         },
         setChatConnection(state, chatConnection) {
             state.chatConnection = chatConnection;
+        },
+        openRoom(state, room) {
+            state.orderRooms.push(room);
         }
     },
     actions: {
