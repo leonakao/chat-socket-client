@@ -78,8 +78,17 @@ export default {
         ...mapGetters({
             orders: 'getOrders'
         }),
-        isRestaurant(){
+        isRestaurant() {
             return this.user.identification === process.env.VUE_APP_TOKEN_SERVICE_RESTAURANT;
+        },
+        isSupport() {
+            return this.user.identification === process.env.VUE_APP_TOKEN_SERVICE_SUPPORT;
+        },
+        isUser() {
+            return this.user.identification === process.env.VUE_APP_TOKEN_SERVICE_USER;
+        },
+        isDelivery() {
+            return this.user.identification === process.env.VUE_APP_TOKEN_SERVICE_DELIVERY;
         }
     },
     methods: {
