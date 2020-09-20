@@ -64,10 +64,19 @@ export default new Vuex.Store({
                 alert(`An error occurred: ${err.message}`);
             }
         },
-        async findRoomByOrder({ state }, orderId) {
+        async findRoomWithRestaurantByOrder({ state }, orderId) {
             try{
                 if (state.chatConnection){
-                    return await state.chatConnection.findRoomByOrder(orderId);
+                    return await state.chatConnection.findRoomWithRestaurantByOrder(orderId);
+                }
+            } catch (err) {
+                alert(`An error occurred: ${err.message}`);
+            }
+        },
+        async findRoomWithUserByOrder({ state }, orderId) {
+            try{
+                if (state.chatConnection){
+                    return await state.chatConnection.findRoomWithUserByOrder(orderId);
                 }
             } catch (err) {
                 alert(`An error occurred: ${err.message}`);

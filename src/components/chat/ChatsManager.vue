@@ -17,7 +17,7 @@ export default {
     async created(){
         this.$nextTick(async () => {
             await this.getRooms();
-            if(this.user.identification === process.env.VUE_APP_TOKEN_SERVICE_SUPPORT || this.user.identification === process.env.VUE_APP_TOKEN_SERVICE_RESTAURANT) {
+            if(this.user.identification === process.env.VUE_APP_TOKEN_SERVICE_SUPPORT) {
                 this.rooms.push(...this.allRooms);
             }
         });

@@ -70,8 +70,12 @@ export default (() => {
                     orderId
                 });
             },
-            findRoomByOrder: async (orderId) => {
-                const { data } = await api.get(`/rooms/order/${orderId}`);
+            findRoomWithRestaurantByOrder: async (orderId) => {
+                const { data } = await api.get(`/rooms/order/${orderId}/restaurant`);
+                return data;
+            },
+            findRoomWithUserByOrder: async (orderId) => {
+                const { data } = await api.get(`/rooms/order/${orderId}/user`);
                 return data;
             },
             findRoomByUser: async (userId) => {

@@ -18,8 +18,23 @@
                         <p>Delivery: {{ order.delivery }}</p>
                     </v-card-text>
                     <v-card-actions>
-                        <v-btn v-if="!isRestaurant" text color="primary" @click="openRoomByOrder(order.id)" :disabled="orderRooms.find(room => room.orderId === order.id) ? true : false">
-                            Open chat using this order
+                        <v-btn
+                            v-if="!isRestaurant"
+                            text
+                            color="primary"
+                            @click="openRoomWithRestaurantByOrder(order.id)"
+                            :disabled="!!orderRooms.find(room => room.orderId === order.id && room.type == 'user_order')"
+                        >
+                            Open chat with Restaurant
+                        </v-btn>
+                        <v-btn
+                            v-if="!isUser"
+                            text
+                            color="primary"
+                            @click="openRoomWithUserByOrder(order.id)"
+                            :disabled="!!orderRooms.find(room => room.orderId === order.id && room.type == 'user_order')"
+                        >
+                            Open chat with User
                         </v-btn>
                     </v-card-actions>
                 </v-card>
@@ -95,13 +110,18 @@ export default {
         ...mapActions({
             newRoom: 'createRoom',
             updateRooms: 'getRooms',
-            findRoomByOrder: 'findRoomByOrder',
+            findRoomWithRestaurantByOrder: 'findRoomWithRestaurantByOrder',
+            findRoomWithUserByOrder: 'findRoomWithUserByOrder',
         }),
         ...mapMutations({
             openRoom: 'openRoom'
         }),
-        async openRoomByOrder(orderId) {
-            const room = await this.findRoomByOrder(orderId);
+        async openRoomWithUserByOrder(orderId) {
+            const room = await this.findRoomWithUserByOrder(orderId);
+            this.openRoom(room);
+        },
+        async openRoomWithRestaurantByOrder(orderId) {
+            const room = await this.findRoomWithRestaurantByOrder(orderId);
             this.openRoom(room);
         }
     }
@@ -111,5 +131,10 @@ export default {
 <style scoped>
 .containerLayout {
     height: 100%;
+}
+
+.disabledbutton {
+    pointer-events: none;
+    opacity: 0.4;
 }
 </style>
