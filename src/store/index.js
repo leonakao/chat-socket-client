@@ -108,6 +108,15 @@ export default new Vuex.Store({
             } catch (err) {
                 alert(`An error occurred: ${err.message}`);
             }
+        },
+        async findRoomByRestaurant({ state }, restaurantId) {
+            try {
+                if (state.chatConnection){
+                    return await state.chatConnection.findRoomByRestaurant(restaurantId);
+                }
+            } catch (err) {
+                alert(`An error occurred: ${err.message}`);
+            }
         }
     },
     modules: {

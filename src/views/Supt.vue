@@ -14,6 +14,18 @@
                 <v-row justify="center">
                     <Chat v-if="userRoom" :room="userRoom" :key="userRoom._id" />
                 </v-row>
+                <v-row justify="center">
+                    <h2>RESTAURANTS:</h2>
+                </v-row>
+                <v-row class="users my-6 px-10" justify="center">
+                    <div class="user flex-column d-flex" v-for="n of 6" :key="n" @click="openRestaurant(n)">
+                        <v-icon x-large>mdi-account</v-icon>
+                        <span class="name">Restaurant 00{{ n }}</span>
+                    </div>
+                </v-row>
+                <v-row justify="center">
+                    <Chat v-if="restaurantRoom" :room="restaurantRoom" :key="restaurantRoom._id" />
+                </v-row>
             </v-container>
         </v-row>
         <v-row justify="center">
@@ -30,6 +42,8 @@ export default {
     data: () => ({
         userRoom: undefined,
         userId: undefined,
+        restaurantRoom: undefined,
+        restaurantId: undefined,
     }),
     components: {
         Chat
@@ -43,8 +57,17 @@ export default {
             }
             this.userRoom = await this.findRoomByUser(userId);
         },
+        async openRestaurant(restaurantId) {
+            if(this.restaurantId === restaurantId) {
+                this.restaurantId = undefined;
+                this.restaurantRoom = undefined;
+                return;
+            }
+            this.restaurantRoom = await this.findRoomByRestaurant(restaurantId);
+        },
         ...mapActions([
             'findRoomByUser',
+            'findRoomByRestaurant',
         ])
     }
 };
