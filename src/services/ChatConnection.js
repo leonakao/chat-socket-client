@@ -90,6 +90,10 @@ export default (() => {
                 const { data } = await api.get(`/rooms/restaurant/${restaurantId}`);
                 return data;
             },
+            findRoomByDelivery: async (deliveryId) => {
+                const { data } = await api.get(`/rooms/delivery/${deliveryId}`);
+                return data;
+            },
             findRoomById: async (roomId) => {
                 const { data } = await api.get(`/rooms/${roomId}`);
                 return data;

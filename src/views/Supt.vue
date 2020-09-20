@@ -26,6 +26,18 @@
                 <v-row justify="center">
                     <Chat v-if="restaurantRoom" :room="restaurantRoom" :key="restaurantRoom._id" />
                 </v-row>
+                <v-row justify="center">
+                    <h2>DELIVERY MEN:</h2>
+                </v-row>
+                <v-row class="users my-6 px-10" justify="center">
+                    <div class="user flex-column d-flex" v-for="n of 6" :key="n" @click="openDelivery(n)">
+                        <v-icon x-large>mdi-account</v-icon>
+                        <span class="name">Delivery 00{{ n }}</span>
+                    </div>
+                </v-row>
+                <v-row justify="center">
+                    <Chat v-if="deliveryRoom" :room="deliveryRoom" :key="deliveryRoom._id" />
+                </v-row>
             </v-container>
         </v-row>
         <v-row justify="center">
@@ -44,6 +56,8 @@ export default {
         userId: undefined,
         restaurantRoom: undefined,
         restaurantId: undefined,
+        deliveryRoom: undefined,
+        deliveryId: undefined,
     }),
     components: {
         Chat
@@ -65,9 +79,18 @@ export default {
             }
             this.restaurantRoom = await this.findRoomByRestaurant(restaurantId);
         },
+        async openDelivery(deliveryId) {
+            if(this.deliveryId === deliveryId) {
+                this.deliveryId = undefined;
+                this.deliveryRoom = undefined;
+                return;
+            }
+            this.deliveryRoom = await this.findRoomByDelivery(deliveryId);
+        },
         ...mapActions([
             'findRoomByUser',
             'findRoomByRestaurant',
+            'findRoomByDelivery',
         ])
     }
 };
