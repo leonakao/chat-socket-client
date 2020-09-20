@@ -17,13 +17,14 @@
                         <p>Restaurant: {{ order.restaurant }}</p>
                         <p>Delivery: {{ order.delivery }}</p>
                     </v-card-text>
-                    <v-card-actions>
+                    <v-card-actions class="flex-wrap">
                         <v-btn
                             v-if="!isRestaurant"
                             text
                             color="primary"
+                            block
                             @click="openRoomWithRestaurantByOrder(order.id)"
-                            :disabled="!!orderRooms.find(room => room.orderId === order.id && room.type == 'user_order')"
+                            :disabled="!!orderRooms.find(room => room.orderId === order.id && (room.type == 'user_order' ||  room.type == 'delivery_order'))"
                         >
                             Open chat with Restaurant
                         </v-btn>
@@ -31,10 +32,21 @@
                             v-if="!isUser"
                             text
                             color="primary"
+                            block
                             @click="openRoomWithUserByOrder(order.id)"
                             :disabled="!!orderRooms.find(room => room.orderId === order.id && room.type == 'user_order')"
                         >
                             Open chat with User
+                        </v-btn>
+                        <v-btn
+                            v-if="!isDelivery"
+                            text
+                            color="primary"
+                            block
+                            @click="openRoomWithDeliveryByOrder(order.id)"
+                            :disabled="!!orderRooms.find(room => room.orderId === order.id && (room.type == 'delivery_order' || room.type == 'user_order_delivery'))"
+                        >
+                            Open chat with Delivery Man
                         </v-btn>
                     </v-card-actions>
                 </v-card>
@@ -112,6 +124,7 @@ export default {
             updateRooms: 'getRooms',
             findRoomWithRestaurantByOrder: 'findRoomWithRestaurantByOrder',
             findRoomWithUserByOrder: 'findRoomWithUserByOrder',
+            findRoomWithDeliveryByOrder: 'findRoomWithDeliveryByOrder',
         }),
         ...mapMutations({
             openRoom: 'openRoom'
@@ -123,7 +136,12 @@ export default {
         async openRoomWithRestaurantByOrder(orderId) {
             const room = await this.findRoomWithRestaurantByOrder(orderId);
             this.openRoom(room);
-        }
+        },
+        async openRoomWithDeliveryByOrder(orderId) {
+            const room = await this.findRoomWithDeliveryByOrder(orderId);
+            this.openRoom(room);
+        },
+
     }
 };
 </script>
