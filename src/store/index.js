@@ -9,12 +9,12 @@ export default new Vuex.Store({
         user: {},
         chatConnection: undefined,
         orders: [
-            { name: 'Order 001', id: '1', user: '1', restaurant: '1', delivery: '1' },
-            { name: 'Order 002', id: '2', user: '2', restaurant: '2', delivery: '2' },
-            { name: 'Order 003', id: '3', user: '3', restaurant: '3', delivery: '3' },
-            { name: 'Order 004', id: '4', user: '4', restaurant: '4', delivery: '4' },
-            { name: 'Order 005', id: '5', user: '5', restaurant: '5', delivery: '5' },
-            { name: 'Order 006', id: '6', user: '6', restaurant: '6', delivery: '6' }
+            { name: 'Order from Koichi', id: '500000', user: '1', restaurant: '1', delivery: '1' },
+            { name: 'Order from Ticos Burger', id: '500001', user: '2', restaurant: '2', delivery: '2' },
+            { name: 'Order from Koichi', id: '500002', user: '3', restaurant: '3', delivery: '3' },
+            { name: 'Order from Koichi', id: '500003', user: '4', restaurant: '4', delivery: '4' },
+            { name: 'Order from Pastel do Trevo de Bertioga - Caraguá', id: '500004', user: '5', restaurant: '5', delivery: '5' },
+            { name: 'Order from DON CORLEONE PIZZARIA 7 sabores 29.99 cada', id: '500005', user: '6', restaurant: '6', delivery: '6' }
         ],
         orderRooms: []
     },
