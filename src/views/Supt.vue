@@ -6,9 +6,9 @@
                     <h2>USERS:</h2>
                 </v-row>
                 <v-row class="users my-6 px-10" justify="center">
-                    <div class="user flex-column d-flex" v-for="n of 6" :key="n" @click="openUser(n)">
+                    <div class="user flex-column d-flex" v-for="account in accounts.users" :key="account.id" @click="openUser(account.id)">
                         <v-icon x-large>mdi-account</v-icon>
-                        <span class="name">User 00{{ n }}</span>
+                        <span class="name">{{ account.name }}</span>
                     </div>
                 </v-row>
                 <v-row justify="center">
@@ -18,9 +18,9 @@
                     <h2>RESTAURANTS:</h2>
                 </v-row>
                 <v-row class="users my-6 px-10" justify="center">
-                    <div class="user flex-column d-flex" v-for="n of 6" :key="n" @click="openRestaurant(n)">
+                    <div class="user flex-column d-flex" v-for="account in accounts.restaurants" :key="account.id" @click="openRestaurant(account.id)">
                         <v-icon x-large>mdi-account</v-icon>
-                        <span class="name">Restaurant 00{{ n }}</span>
+                        <span class="name">{{ account.name }}</span>
                     </div>
                 </v-row>
                 <v-row justify="center">
@@ -30,9 +30,9 @@
                     <h2>DELIVERY MEN:</h2>
                 </v-row>
                 <v-row class="users my-6 px-10" justify="center">
-                    <div class="user flex-column d-flex" v-for="n of 6" :key="n" @click="openDelivery(n)">
+                    <div class="user flex-column d-flex" v-for="account in accounts.deliverys" :key="account.id" @click="openDelivery(account.id)">
                         <v-icon x-large>mdi-account</v-icon>
-                        <span class="name">Delivery 00{{ n }}</span>
+                        <span class="name">{{ account.name }}</span>
                     </div>
                 </v-row>
                 <v-row justify="center">
@@ -58,6 +58,32 @@ export default {
         restaurantId: undefined,
         deliveryRoom: undefined,
         deliveryId: undefined,
+        accounts: {
+            users: [
+                { name: 'User 17443', id: '17443' },
+                { name: 'User 43149', id: '43149' },
+                { name: 'User 40003', id: '40003' },
+                { name: 'User 43151', id: '43151' },
+                { name: 'User 35052', id: '35052' },
+                { name: 'User 30514', id: '30514' },
+            ],
+            restaurants: [
+                { name: 'Restaurant 641', id: '641' },
+                { name: 'Restaurant 154', id: '154' },
+                { name: 'Restaurant 316', id: '316' },
+                { name: 'Restaurant 375', id: '375' },
+                { name: 'Restaurant 529', id: '529' },
+                { name: 'Restaurant 328', id: '328' },
+            ],
+            deliverys: [
+                { name: 'Delivery 618', id: '618' },
+                { name: 'Delivery 154', id: '154' },
+                { name: 'Delivery 344', id: '344' },
+                { name: 'Delivery 341', id: '341' },
+                { name: 'Delivery 503', id: '503' },
+                { name: 'Delivery 305', id: '305' },
+            ],
+        },
     }),
     components: {
         Chat

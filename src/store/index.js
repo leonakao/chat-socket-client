@@ -9,12 +9,12 @@ export default new Vuex.Store({
         user: {},
         chatConnection: undefined,
         orders: [
-            { name: 'Order from Koichi', id: '500000', user: '1', restaurant: '1', delivery: '1' },
-            { name: 'Order from Ticos Burger', id: '500001', user: '2', restaurant: '2', delivery: '2' },
-            { name: 'Order from Koichi', id: '500002', user: '3', restaurant: '3', delivery: '3' },
-            { name: 'Order from Koichi', id: '500003', user: '4', restaurant: '4', delivery: '4' },
-            { name: 'Order from Pastel do Trevo de Bertioga - Caraguá', id: '500004', user: '5', restaurant: '5', delivery: '5' },
-            { name: 'Order from DON CORLEONE PIZZARIA 7 sabores 29.99 cada', id: '500005', user: '6', restaurant: '6', delivery: '6' }
+            { name: 'Order from Edis Lanches e Pizzarias', id: '500007', user: '17443', restaurant: '641', delivery: '618' },
+            { name: 'Order from Idaina Kami Sushi Bar', id: '500006', user: '43149', restaurant: '154', delivery: '154' },
+            { name: 'Order from Ticos Burger', id: '500001', user: '40003', restaurant: '316', delivery: '344' },
+            { name: 'Order from Koichi', id: '500003', user: '43151', restaurant: '375', delivery: '341' },
+            { name: 'Order from Pastel do Trevo de Bertioga - Caraguá', id: '500004', user: '35052', restaurant: '529', delivery: '503' },
+            { name: 'Order from DON CORLEONE PIZZARIA 7 sabores 29.99 cada', id: '500005', user: '30514', restaurant: '328', delivery: '305' }
         ],
         orderRooms: []
     },

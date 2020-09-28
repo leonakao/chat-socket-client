@@ -75,15 +75,15 @@ export default (() => {
                 return data;
             },
             findRoomWithUserByOrder: async (orderId) => {
-                const { data } = await api.get(`/rooms/order/${orderId}/costumer`);
+                const { data } = await api.get(`/rooms/order/${orderId}/customer`);
                 return data;
             },
             findRoomWithDeliveryByOrder: async (orderId) => {
                 const { data } = await api.get(`/rooms/order/${orderId}/delivery`);
                 return data;
             },
-            findRoomByUser: async (costumerId) => {
-                const { data } = await api.get(`/rooms/costumer/${costumerId}`);
+            findRoomByUser: async (customerId) => {
+                const { data } = await api.get(`/rooms/customer/${customerId}`);
                 return data;
             },
             findRoomByRestaurant: async (shopId) => {
