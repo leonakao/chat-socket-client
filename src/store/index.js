@@ -48,7 +48,7 @@ export default new Vuex.Store({
             try{
                 if(state.chatConnection){
                     const rooms = await state.chatConnection.getRooms();
-                    commit('setRooms', rooms);
+                    commit('setRooms', rooms.data);
                 }
             } catch (err) {
                 console.log('Error while loading rooms: ', err);
