@@ -41,7 +41,7 @@ export default (() => {
                 }
 
                 try{
-                    const request = await api.get('/rooms/messages/' + roomId);
+                    const request = await api.get('/room/messages/' + roomId);
                     return request.data;
                 } catch (err) {
                     console.log('Error while getting history chat: '  + err);
@@ -65,37 +65,37 @@ export default (() => {
                 return result.data;
             },
             createRoomByOrder: async (orderId) => {
-                await api.post('/rooms', {
+                await api.post('/room', {
                     name: `Order ${orderId}`,
                     orderId
                 });
             },
             findRoomWithRestaurantByOrder: async (orderId) => {
-                const { data } = await api.get(`/rooms/order/${orderId}/shop`);
+                const { data } = await api.get(`/room/order/${orderId}/shop`);
                 return data;
             },
             findRoomWithUserByOrder: async (orderId) => {
-                const { data } = await api.get(`/rooms/order/${orderId}/customer`);
+                const { data } = await api.get(`/room/order/${orderId}/customer`);
                 return data;
             },
             findRoomWithDeliveryByOrder: async (orderId) => {
-                const { data } = await api.get(`/rooms/order/${orderId}/delivery`);
+                const { data } = await api.get(`/room/order/${orderId}/delivery`);
                 return data;
             },
             findRoomByUser: async (customerId) => {
-                const { data } = await api.get(`/rooms/customer/${customerId}`);
+                const { data } = await api.get(`/room/customer/${customerId}`);
                 return data;
             },
             findRoomByRestaurant: async (shopId) => {
-                const { data } = await api.get(`/rooms/shop/${shopId}`);
+                const { data } = await api.get(`/room/shop/${shopId}`);
                 return data;
             },
             findRoomByDelivery: async (deliveryId) => {
-                const { data } = await api.get(`/rooms/delivery/${deliveryId}`);
+                const { data } = await api.get(`/room/delivery/${deliveryId}`);
                 return data;
             },
             findRoomById: async (roomId) => {
-                const { data } = await api.get(`/rooms/${roomId}`);
+                const { data } = await api.get(`/room/${roomId}`);
                 return data;
             }
         };
