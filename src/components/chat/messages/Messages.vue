@@ -21,14 +21,7 @@ export default {
     props: {
         messages: {
             type: Array,
-            default: () => {
-                return [
-                    { text: 'Message 1', user: true },
-                    { text: 'Message 1', user: false },
-                    { text: 'Message 1', user: false },
-                    { text: 'Message 1', user: true },
-                ];
-            }
+            required: true,
         }
     }
 };
