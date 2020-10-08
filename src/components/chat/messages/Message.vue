@@ -30,7 +30,7 @@ export default {
             return this.user.identification == this.message.from.reference.type && this.user.id == this.message.from.reference.id;
         },
         userIcon() {
-            return this.message.viewed ? 'mdi-account-check' : 'mdi-account';
+            return this.message.viewed && this.isMine ? 'mdi-account-check' : 'mdi-account';
         },
         ...mapState({
             user: state => state.user
