@@ -44,13 +44,17 @@ export default {
     },
     async mounted() {
         if(window.chatConnection) {
-            const messages = await window.chatConnection.useChat(this.room._id, this.addMessage);
+            const messages = await window.chatConnection.useChat(this.room._id, {
+                newMessage: this.addMessage,
+                messagesViewed: this.mess
+            });
             this.messages.push(...messages);
             this.connected = true;
         }
         this.messageContainer = this.$el.querySelector('#messages-container');
         this.$nextTick(() => {
             this.scrollToBottom();
+            window.chatConnection.messagesViewed(this.room._id);
         });
     },
     methods: {
@@ -73,8 +77,15 @@ export default {
                 this.scrollToBottom();
             });
         },
+        messagesViewed() {
+            this.messages.forEach((message, index) => {
+                if(!message.viewed) {
+                    this.messages[index].viewed = true;
+                }
+            });
+        },
         scrollToBottom(){
-            this.messageContainer.scrollTop =this.messageContainer.scrollHeight;
+            this.messageContainer.scrollTop = this.messageContainer.scrollHeight;
         }
     },
     computed: {

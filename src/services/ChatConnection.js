@@ -25,18 +25,24 @@ export default (() => {
         let newChatCallback = () => {};
 
         window.chatConnection = {
-            useChat: async (roomId, callback = () => {}) => {
+            useChat: async (roomId, callbacks = {
+                newMessage: () => {},
+                messagesViewed: () => {},
+            }) => {
                 if(!connected) {
                     new Error('You must be connected');
                 }
 
                 const roomExist = rooms.find(room => room.id === roomId);
-                if(roomExist && roomExist.callback !== callback) {
-                    rooms[rooms.indexOf(roomExist)].callback = callback;
+                if(roomExist && roomExist.callbacks !== callbacks) {
+                    rooms[rooms.indexOf(roomExist)].callbacks = callbacks;
                 } else if (!roomExist) {
                     rooms.push({
                         id: roomId,
-                        callback
+                        callbacks: {
+                            newMessage: callbacks.newMessage || (() => {}),
+                            messagesViewed: callbacks.messagesViewed || (() => {})
+                        }
                     });
                 }
 
@@ -49,7 +55,7 @@ export default (() => {
             },
             sendMessage: async (roomId, message) => {
                 if(!connected) {
-                    new Error('You must be connected');
+                    throw new Error('You must be connected');
                 }
 
                 socket.emit('newMessage', {
@@ -97,6 +103,15 @@ export default (() => {
             findRoomById: async (roomId) => {
                 const { data } = await api.get(`/room/${roomId}`);
                 return data;
+            },
+            messagesViewed: async (roomId) => {
+                if(!connected) {
+                    throw new Error('You must be connected');
+                }
+
+                socket.emit('messagesViewed', {
+                    roomId,
+                });
             }
         };
 
@@ -123,11 +138,19 @@ export default (() => {
 
             const room = rooms.find(room => room.id === message.room);
 
-            if(room) room.callback(message);
+            if(room) room.callbacks.newMessage(message);
             else {
                 console.log('Message received from new chat: ', message.room);
                 newChatCallback(await window.chatConnection.findRoomById(message.room));
             }
+        });
+
+        socket.on('messageViewed', async payload => {
+            const roomId = payload;
+
+            const room = rooms.find(room => room.id === roomId);
+
+            if(room) room.callbacks.messagesViewed();
         });
 
         return window.chatConnection;
