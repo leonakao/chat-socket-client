@@ -145,8 +145,8 @@ export default (() => {
             }
         });
 
-        socket.on('messageViewed', async payload => {
-            const roomId = payload;
+        socket.on('messagesViewed', async payload => {
+            const { roomId } = payload;
 
             const room = rooms.find(room => room.id === roomId);
 
