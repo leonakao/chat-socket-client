@@ -13,7 +13,7 @@
             <v-divider></v-divider>
             <v-row class="room-input">
                 <v-col cols="12">
-                    <v-text-field @keyup.enter="inputKeyUp()" v-model="messageInput" placeholder="Type your message..."></v-text-field>
+                    <v-text-field @keyup.enter="inputKeyUp()" v-model="messageInput" placeholder="Type your message..." @focus="focused = true" @blur="focused = false"></v-text-field>
                 </v-col>
             </v-row>
         </v-container>
@@ -31,6 +31,7 @@ export default {
             messageInput: '',
             connected: false,
             messageContainer: undefined,
+            focused: false,
         };
     },
     components: {
@@ -46,7 +47,7 @@ export default {
         if(window.chatConnection) {
             const messages = await window.chatConnection.useChat(this.room._id, {
                 newMessage: this.addMessage,
-                messagesViewed: this.mess
+                messagesViewed: this.messagesViewed
             });
             this.messages.push(...messages);
             this.connected = true;
@@ -54,7 +55,7 @@ export default {
         this.messageContainer = this.$el.querySelector('#messages-container');
         this.$nextTick(() => {
             this.scrollToBottom();
-            window.chatConnection.messagesViewed(this.room._id);
+            this.emitMessagesViewed();
         });
     },
     methods: {
@@ -73,6 +74,9 @@ export default {
         addMessage(message) {
             if(!message) { return false; }
             this.messages.push(message);
+            if(this.focused){
+                this.emitMessagesViewed();
+            }
             this.$nextTick(() => {
                 this.scrollToBottom();
             });
@@ -86,12 +90,22 @@ export default {
         },
         scrollToBottom(){
             this.messageContainer.scrollTop = this.messageContainer.scrollHeight;
+        },
+        emitMessagesViewed() {
+            window.chatConnection.messagesViewed(this.room._id);
         }
     },
     computed: {
         ...mapState({
             user: state => state.user
         })
+    },
+    watch: {
+        focused(isFocused) {
+            if(isFocused) {
+                this.emitMessagesViewed();
+            }
+        }
     }
 };
 </script>
