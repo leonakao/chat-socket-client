@@ -74,7 +74,8 @@ export default {
         addMessage(message) {
             if(!message) { return false; }
             this.messages.push(message);
-            if(this.focused){
+            console.log(message);
+            if(this.focused && !message.fromCurrentUser){
                 this.emitMessagesViewed();
             }
             this.$nextTick(() => {
